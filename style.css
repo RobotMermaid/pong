@@ -1,0 +1,12 @@
+body {
+  background-color: steelblue;
+}
+h1 {
+  color: darkblue;
+}
+canvas {
+  background-color: seashell;
+  margin: 0 auto;
+  display: block;
+
+}
