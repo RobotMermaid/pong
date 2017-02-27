@@ -7,7 +7,7 @@ canvas.width  = window.innerWidth-100;
 canvas.height = window.innerHeight-130;
 
 
-var Paddle = function Paddle(xpos, ypos, height, width, speed) {
+var Paddle = function Paddle(xpos, ypos, width, height, speed) {
   this.xpos = xpos;
   this.ypos = ypos;
   this.height = height;
@@ -34,7 +34,7 @@ var Ball = function Ball(centerX, centerY, radius) {
 // ******************************************************  Render
 Paddle.prototype.render = function() {
   context.beginPath();
-  context.rect(this.xpos, this.ypos, this.height, this.width);
+  context.rect(this.xpos, this.ypos, this.width, this.height);
   context.fillStyle = 'black';
   context.fill();
 };
@@ -127,14 +127,14 @@ var collision = function() {
   // var distYpaddle = collisionCheck(paddleR, "y");
   // var distXcomputer = collisionCheck(computer, "x");
   // var distYcomputer = collisionCheck(computer, "y");
-
-  var centerXRect = paddleR.xpos + paddleR.width/ 2;
+//reversed height and width of paddle
+  var centerXRect = paddleR.xpos + paddleR.width/2 ;
   // + 50 works for the bottom half of the paddle +100 works for the bottom tip
-  // paddleR.ypos + paddleR.height still goes thru the bottom half and runs up teh side
-  var centerYRect = paddleR.ypos + paddleR.height ;
+  // paddleR.ypos + paddleR.width still goes thru the bottom half and runs up teh side
+  var centerYRect = paddleR.ypos + paddleR.height/ 2 ;
   // this makes it boop off correctly not 50 away
-  var centerXComp = computer.xpos - computer.width/ 2 + 20;
-  var centerYComp = computer.ypos + computer.height+50;
+  var centerXComp = computer.xpos + computer.width/2;
+  var centerYComp = computer.ypos + computer.height/2 ;
 
   var distXpaddle = Math.abs(ball.centerX - centerXRect);
   var distYpaddle = Math.abs(ball.centerY - centerYRect);
@@ -142,7 +142,7 @@ var collision = function() {
   var distYcomputer = Math.abs(ball.centerY - centerYComp);
 //
   if (distXpaddle <= (paddleR.width/2 + ball.radius) && distYpaddle <= (paddleR.height/2 + ball.radius)) {
-    console.log("boing X" +paddleR.width);
+    console.log("boing X" +paddleR.height);
       ball.speedX = ball.speedX * -1;
       // ball.speedY = ball.speedY * -1;
       // debugger;
@@ -167,7 +167,7 @@ var updateComputer = function() {
 //at 50 gets stuck behind and inconsistent at 60 no
 //+10 works inconsistently
   computer.ypos = ball.centerY -50 ;
-  // paddleR.ypos = ball.centerY;
+  paddleR.ypos = ball.centerY -10;
 };
 
 var animate = window.requestAnimationFrame ||
