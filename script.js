@@ -5,7 +5,10 @@ var context = canvas.getContext("2d");
 
 canvas.width  = window.innerWidth-100;
 canvas.height = window.innerHeight-130;
-
+var playerScore = 0;
+var computerScore = 0;
+var scorePlayer = document.getElementById('pScore');
+var scoreComputer = document.getElementById('cScore');
 
 var Paddle = function Paddle(xpos, ypos, width, height, speed) {
   this.xpos = xpos;
@@ -58,12 +61,15 @@ Ball.prototype.move = function() {
 //going thru the sides
   if(this.centerX + this.radius > canvas.width) {
     this.speedX = this.speedX * -1;
-    console.log('o no');
+    computerScore +=1;
+
+    console.log('o no ' + computerScore + " points for the computer"  );
 // increment points and reload game
   }
   if(this.centerX - this.radius < 0) {
     this.speedX = this.speedX * -1;
-    console.log('yay');
+    playerScore += 1;
+    console.log('yay ' + playerScore + ' points for you');
   }
 };
 // // ------------collision-----------------
@@ -85,7 +91,7 @@ var collision = function() {
       // this works surprisingly enough
       // hitzone = ball.centerY+20;
       speedComp = Math.random() * (200-50)-50;
-    console.log("boing" + speedComp);
+    console.log("boing" );
   };
   if (distXcomputer <= (computer.width/2 + ball.radius) && distYcomputer <= (computer.height/2 + ball.radius)) {
     console.log("boop" );
@@ -100,7 +106,7 @@ var ball = new Ball(canvas.width/2, canvas.height/2);
 var computer = new Paddle(5, canvas.height/2-50, 20, 100);
 var updateComputer = function() {
   computer.ypos = ball.centerY-speedComp;
-  paddleR.ypos = ball.centerY -50;
+  // paddleR.ypos = ball.centerY -50;
 };
 
 var animate = window.requestAnimationFrame ||
@@ -116,6 +122,11 @@ var drawLine = function() {
   context.lineTo(canvas.width/2, canvas.height);
   context.stroke();
 };
+
+var updateScore = function() {
+  scorePlayer.innerHTML = playerScore;
+  scoreComputer.innerHTML = computerScore;
+}
 // callback for animate function
   function step() {
       context.clearRect(0,0,canvas.width, canvas.height);
@@ -126,7 +137,7 @@ var drawLine = function() {
       ball.render();
       computer.render();
       paddleR.render();
-
+      updateScore();
       animate(step);
 }
     window.addEventListener('keydown', paddleR.move.bind(paddleR));
