@@ -1,12 +1,26 @@
 body {
   background-color: steelblue;
+  font-family: monospace;
 }
 h1 {
   color: darkblue;
+  text-align: center;
 }
 canvas {
   background-color: seashell;
   margin: 0 auto;
   display: block;
 
+}
+.score {
+  text-align: center;
+  font-size: 50px;
+  color: rgba(200,227,248, 0.7);
+  position: static;
+}
+#message {
+  visibility: hidden;
+}
+p {
+  text-align: center;
 }

@@ -10,11 +10,11 @@
   </head>
   <body>
     <h1>Play Pong</h1>
-    <h2>your score is : <div id="pScore"> 0</div> </h2>
-    <h2> the computers score is : <div id="cScore">0 </div> </h2>
+    <p> space bar to start a game up and down arrows to control your paddle </p>
+    <div class="score"><span id="cScore">0 </span> • <span id="pScore"> 0</span></div>
     <canvas id="canvas"></canvas>
-
-
+    <div id="message" class="score">alert</div>
+    <audio id="end-of-time" src="flute_c_long_01.wav" preload="auto"></audio>
 
 
     <script type="text/javascript" src="script.js"></script>
