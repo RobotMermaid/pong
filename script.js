@@ -66,13 +66,14 @@ Ball.prototype.move = function() {
   if(this.centerX + this.radius > canvas.width-5) {
     this.speedX = this.speedX * -1;
     computerScore +=1;
-
+    document.getElementById('bump').play()
     console.log('o no ' + computerScore + " points for the computer"  );
 
   }
   if(this.centerX - this.radius < 0) {
     this.speedX = this.speedX * -1;
     playerScore += 1;
+    document.getElementById('bump').play()
     console.log('yay ' + playerScore + ' points for you');
   }
 };
@@ -90,10 +91,12 @@ var collision = function() {
 
   if (distXpaddle < (paddleR.width/2 + ball.radius) && distYpaddle < (paddleR.height/2 + ball.radius)) {
       ball.speedX = ball.speedX * -1;
+      document.getElementById('blop').play()
       console.log("boing" );
   };
   if (distXcomputer < (computer.width/2 + ball.radius) && distYcomputer < (computer.height/2 + ball.radius)) {
       console.log("boop" );
+      document.getElementById('blop').play();
       ball.speedX = ball.speedX * -1;
   };
 };
@@ -133,7 +136,7 @@ var updateScore = function() {
     var winner = playerScore > computerScore ? message.innerHTML="you win!" : message.innerHTML="you loose";
     message.style.visibility = 'visible';
     gamePlaying = false;
-    document.getElementById('end-of-time').play()
+    document.getElementById('game-over').play()
 
     playerScore = 0;
     computerScore = 0;
